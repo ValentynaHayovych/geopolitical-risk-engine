@@ -98,7 +98,7 @@ Some of SQL views findings were used later in Power BI dashboard.
 Full ETL pipeline with additional forecast step. Extracts raw conflict data, transforms and filters it, aggregates historical conflict frequency per country, predicts 2025-2026 values using PoissonRegressor, and loads two fact tables into SQL Server.
 
 
-### Power BI
+### powerbi
 Four-page Power BI dashboard supports exploratory analysis of global conflict data.
 
 - **Executive Overview** - KPIs, conflict frequency by year, globe visualization
