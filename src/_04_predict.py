@@ -1,3 +1,4 @@
+from src.pipeline_logger import log
 from sklearn.linear_model import PoissonRegressor
 import pandas as pd
 import numpy as np
@@ -33,6 +34,7 @@ def conflict_involvment_prediction(df):
             "Is_Prediction": True
         })
 
+    # Generate predictions for each country and combine with historical data
     all_predictions = []
 
     country_conflicts = melted_country_conflicts(df)
@@ -44,6 +46,11 @@ def conflict_involvment_prediction(df):
 
     all_predictions_df = pd.concat(all_predictions, ignore_index=True)
     final_df = pd.concat([country_conflicts, all_predictions_df], ignore_index=True)
+    
+    # Logging prediction details
+    log.kv("historical rows", len(country_conflicts))
+    log.kv("prediction horizon", "2025 - 2026")
+    log.kv("predicted rows", len(all_predictions_df))
 
     return final_df
 

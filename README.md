@@ -7,7 +7,7 @@ Welcome to the **Geopolitical Risk Engine** repository!
 
 This project analyzes simulated historical data on global conflicts through a full ETL pipeline extended with machine learning prediction step.
 
-A PoissonRegressor model forecasts conflict frequency per country for 2025-2026 and appends predictions to the historical dataset. Fact tables *fact_conflicts* and *fact_country_conflict_predictions* are loaded into SQL Server and connected to a Power BI dashboard via DirectQuery.
+A PoissonRegressor model forecasts conflict frequency per country for 2025-2026 and appends predictions to the historical dataset. Data is staged through raw, staging and analytics schemas in SQL Server. Power BI connects to *fact_conflicts* and *fact_country_conflict_predictions* via DirectQuery, which are views mapped to the analytics schema tables.
 
 
 ## Business Context
@@ -23,18 +23,29 @@ The solution enables users to:
 
 ## Architecture
 ```
-    Historical Conflict Dataset
-                ↓
-        Python ETL + Predict
-                ↓
-            SQL Server
-                ↓
-        Power BI Dashboard
+                   Historical Conflict Dataset
+
+                                ↓
+
+                           Python ETL
+        [ Extract → Validate → Transform → Predict (ML) ]
+
+                                ↓
+
+                           SQL Server
+                  [ Raw → Staging → Analytics ]
+                
+                                ↓
+
+                        Power BI Dashboard
 ```
+
+### Visual Architecture
+[View Visual Architecture](docs/architecture.pdf)
 
 
 ## Prerequisites
-To reproduce the full workflow locally, Python, SQL Server Management Studio, and Power BI Desktop are recommended.
+To reproduce the full workflow locally, VSCode, Python, SQL Server Management Studio, and Power BI Desktop are recommended.
 
 
 ## Setup & Usage
@@ -42,12 +53,14 @@ To reproduce the full workflow locally, Python, SQL Server Management Studio, an
 2. Create virtual environment: `python -m venv .venv`
 3. Activate virtual environment: `.venv\Scripts\activate`
 4. Install dependencies: `pip install -r requirements.txt`
-5. Configure paths: create config.env file inside config folder and add server name, dataset name and SQL Server driver as shown in the config.env.example
-6. Run the pipeline: `python main.py`
-7. Check fact tables inside SQL Server database (name can be checked in config.env file)
-8. Open .pbit file inside powerbi folder
-9. Power BI asks for connection information: use SQL Server name and database name and connect data using DirectQuery option
-10. Tables can be further updated in SQL Server, but Power BI refreshes the data and visuals populate automatically. Well done!
+5. Run create_database.sql from sql folder to create SQL Server database
+6. Create config.env file inside config folder, copy everything from config.env.example and replace DESKTOP-NAME with your actual desktop name or replace full SQL Server name with the one you have. 
+7. Run create_schemas.sql from sql folder to create SQL Server schemas
+8. Run the pipeline: `python main.py` in terminal from the project folder
+9. Check fact tables inside SQL Server database geopolitical_risk_engine
+10. Open .pbit file inside powerbi folder
+11. If Power BI asks for connection information: use SQL Server name and database name and connect data using DirectQuery option
+12. Tables can be further updated in SQL Server, but Power BI refreshes the data and visuals populate automatically. Well done!
 
 
 ## Tech Stack
@@ -70,32 +83,36 @@ To reproduce the full workflow locally, Python, SQL Server Management Studio, an
 ├───data                                        ## Datasets
 │       global_conflicts_anomalies.csv          # Dataset for the period 1950-2024
 │           
+├───docs                                        ## Architecture
+│       architecture.pdf                        # Visual architecture of the pipeline
+│ 
 ├───powerbi                                     ## Power BI outputs
 │       geopolitical-risk-engine.pbit           # Power BI template
 │       geopolitical-risk-engine.pdf            # PDF file with screenshots of all the Power BI dashboard pages
 │       
 ├───sql                                         ## SQL queries
-│       vw_economic_loss_by_conflict_type.sql   # Conflict_Type + Total_Economic_Loss + Average_Economic_Loss
-│       vw_gdp_gap_group_stats.sql              # GDP_Gap_Label + Conflict_Count + Avg_Economic_Loss + Total_Economic_Loss + Avg_Deaths + Total_Deaths
-│       vw_war_involvment.sql                   # Country + War_Involvment_Count
-│       vw_yearly_trend.sql                     # Year + Total_Conflicts + Total_Deaths + Total_Economic_Loss
+│       create_database.sql                     # Creates SQL Server database
+│       create_schemas.sql                      # Creates SQL Server schemas for ETL tables upload for each data processing stage
+│       create_views.sql                        # Creates SQL Server views required for PowerBI compatibility
 │       
-└───src                                         ## ETL stage of project
-        columns.py                              # List of columns used in transform function
-        _01_extract.py                          # Extracts data from .csv dataset
-        _02_transform.py                        # Selects columns, filters dataset, adds calculations
-        _03_predict.py                          # PoissonRegressor model predicts conflict frequency per country (2025-2026): Country + Year + Conflict_Count
-        _04_load.py                             # Fact tables fact_conflicts and fact_country_conflict_predictions load into SQL Server
+└───src                                         ## ETL stage of project                         
+    │   columns.py                              # List of columns selected for further analysis
+    │   config.py                               # SQL Server connector
+    │   pipeline_logger.py                      # Settings of ETL Pipeline output
+    │   _01_extract.py                          # Extracts data from .csv dataset and from SQL Server
+    │   _02_validate.py                         # Dataset normalization with phases: deduplicate, standardize, handle_nulls
+    │   _03_transform.py                        # Selects columns, filters dataset, adds calculations
+    │   _04_predict.py                          # PoissonRegressor model predicts conflict frequency per country (2025-2026): Country + Year + Conflict_Count
+    └───_05_load.py                             # Load of raw, staging and analytics tables into SQL Server
 ```
 
 
 ### sql
-SQL Server was used during exploratory stage of data aggregation and evolution. The final production workflow relies primarily on Python ETL and Power BI.
-Some of SQL views findings were used later in Power BI dashboard.
+Database, schemas and views creation queries essential for project formation.
 
 
 ### src
-Full ETL pipeline with additional forecast step. Extracts raw conflict data, transforms and filters it, aggregates historical conflict frequency per country, predicts 2025-2026 values using PoissonRegressor, and loads two fact tables into SQL Server.
+Full ETL pipeline with additional forecast step. Extracts raw conflict data, validates, transforms and filters it, aggregates historical conflict frequency per country, predicts 2025-2026 values using PoissonRegressor, and loads each stage result, including two fact tables into SQL Server.
 
 
 ### powerbi
