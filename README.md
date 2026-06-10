@@ -28,7 +28,7 @@ The solution enables users to:
                                 ↓
 
                            Python ETL
-        [ Extract → Validate → Transform → Predict (ML) ]
+      [ Extract → Validate → Transform → Predict (ML) → Load ]
 
                                 ↓
 
@@ -41,7 +41,7 @@ The solution enables users to:
 ```
 
 ### Visual Architecture
-[View Visual Architecture](docs/architecture.pdf)
+[View Visual Architecture](docs/architecture.png)
 
 
 ## Prerequisites
