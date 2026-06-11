@@ -33,9 +33,7 @@ The solution enables users to:
 
 ## Power BI Dashboard
 
-**Dashboard Preview**
-
-[Open Power BI Dashboard PDF](powerbi/geopolitical-risk-engine.pdf)
+[Open Power BI Dashboard Preview](powerbi/geopolitical-risk-engine.pdf)
 
 
 ## Prerequisites
