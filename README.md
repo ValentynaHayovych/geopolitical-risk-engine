@@ -27,13 +27,17 @@ The solution enables users to:
 ## Architecture
 
 <p align="center">
-  <img src="docs/architecture.png" alt="Architecture Diagram">
+  <img src="docs/architecture.drawio.xml" alt="Architecture Diagram">
 </p>
 
 
 ## Power BI Dashboard
 
-[Open Power BI Dashboard Preview](powerbi/geopolitical-risk-engine.pdf)
+<p align="center">
+  <img src="powerbi/executive-overview.png" alt="Executive Overview">
+</p>
+
+![Open Power BI Dashboard Preview](powerbi/geopolitical-risk-engine.pdf)
 
 
 ## Prerequisites
