@@ -31,24 +31,22 @@ Historical Conflict Dataset
 
 ↓
 
-Python ETL
-[ Extract → Validate → Transform → Predict (ML) → Load ]
+Python ETL:  EXTRACT → VALIDATE → TRANSFORM → PREDICT (ML) → LOAD
 
 ↓
 
-SQL Server
-[ Raw → Staging → Analytics ]
+SQL Server:  RAW → STAGING → ANALYTICS
 
 ↓
 
 Power BI Dashboard
 </div>
 
-! [Visual Architecture Diagram](docs/architecture.png)
+[Visual Architecture Diagram](docs/architecture.png)
 
 
 ## Power BI Dashboard
-![Open Power BI Dashboard PDF](powerbi/geopolitical-risk-engine.pdf)
+[Power BI Dashboard PDF](powerbi/geopolitical-risk-engine.pdf)
 
 
 ## Prerequisites
