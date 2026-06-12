@@ -28,19 +28,21 @@ The solution enables users to:
 
 <div align="center">
 
-Historical Conflict Dataset
+[ Historical Conflict Dataset ]
 
 ↓
 
-Python ETL: Extract → Validate → Transform → Predict (ML) → Load
+[ Python ETL ] 
+Extract → Validate → Transform → Predict (ML) → Load
 
 ↓
 
-SQL Server: Raw → Staging → Analytics
+[ SQL Server ] 
+Raw → Staging → Analytics
 
 ↓
 
-Power BI Dashboard
+[ Power BI Dashboard ]
 
 </div>
 
