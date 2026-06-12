@@ -32,15 +32,11 @@ Historical Conflict Dataset
 
 ↓
 
-Python ETL:
-
-[ EXTRACT → VALIDATE → TRANSFORM → PREDICT (ML) → LOAD ]
+Python ETL: Extract → Validate → Transform → Predict (ML) → Load
 
 ↓
 
-SQL Server
-
-[ Raw → Staging → Analytics ]
+SQL Server: Raw → Staging → Analytics
 
 ↓
 
