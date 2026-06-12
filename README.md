@@ -1,7 +1,7 @@
 
-<h1 align="center">Geopolitical Risk Engine</h1>
+<h1 align=>Geopolitical Risk Engine</h1>
 
-<p align="center">
+<p align=>
 ETL Pipeline • Machine Learning Forecasting • SQL Server • Power BI
 </p>
 
@@ -26,18 +26,29 @@ The solution enables users to:
 
 ## Architecture
 
-<p align="center">
-  <img src="docs/architecture.drawio.xml" alt="Architecture Diagram">
-</p>
+<div align="center">
+Historical Conflict Dataset
+
+↓
+
+Python ETL
+[ Extract → Validate → Transform → Predict (ML) → Load ]
+
+↓
+
+SQL Server
+[ Raw → Staging → Analytics ]
+
+↓
+
+Power BI Dashboard
+</div>
+
+! [Visual Architecture Diagram](docs/architecture.png)
 
 
 ## Power BI Dashboard
-
-<p align="center">
-  <img src="powerbi/executive-overview.png" alt="Executive Overview">
-</p>
-
-![Open Power BI Dashboard Preview](powerbi/geopolitical-risk-engine.pdf)
+![Open Power BI Dashboard PDF](powerbi/geopolitical-risk-engine.pdf)
 
 
 ## Prerequisites
@@ -45,7 +56,6 @@ To reproduce the full workflow locally, VSCode, Python, SQL Server Management St
 
 
 ## Setup & Usage
-
 1. Clone the repository.
 2. Create virtual environment: `python -m venv .venv`.
 3. Activate virtual environment: `.venv\Scripts\activate`.
