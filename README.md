@@ -25,28 +25,25 @@ The solution enables users to:
 
 
 ## Architecture
+[Visual Architecture Diagram](docs/architecture.png)
 
 <div align="center">
 
-[ Historical Conflict Dataset ]
+Historical Conflict Dataset
 
 ↓
 
-[ Python ETL ] 
-Extract → Validate → Transform → Predict (ML) → Load
+Python ETL // Extract → Validate → Transform → Predict (ML) → Load
 
 ↓
 
-[ SQL Server ] 
-Raw → Staging → Analytics
+SQL Server // Raw → Staging → Analytics
 
 ↓
 
-[ Power BI Dashboard ]
+Power BI Dashboard
 
 </div>
-
-[Visual Architecture Diagram](docs/architecture.png)
 
 
 ## Power BI Dashboard
