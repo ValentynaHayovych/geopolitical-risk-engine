@@ -24,10 +24,10 @@ The solution enables users to:
 - Compare historical patterns with 2025-2026 forecasts derived from Poisson regression model.
 
 
-## Performance & stats
+## Performance & Stats
 - ETL pipeline with curated dataset processes 1088 records with SQL Server warehouse Raw, Staging, Analytics layers. 
-- Total runtime of full ETL pipeline with added validation and prediction is 15.1 sec.
-- Year_Valid and Land_Valid columns used for filtering in transform stage of ETL, were created as part of [Global Conflicts ML Pipeline](https://github.com/ValentynaHayovych/global-conflicts-ml-pipeline) project.
+- Total runtime of full ETL pipeline with added validation and prediction stages is 15.1 sec.
+- Dataset includes Year_Valid and Land_Valid columns from [Global Conflicts ML Pipeline](https://github.com/ValentynaHayovych/global-conflicts-ml-pipeline) project, used for filtering during ETL transform stage.
 - PoissonRegressor ML model was trained on Conflict_Count and Year to predict conflict frequency per country for 2025-2026.
 - Implemented structured logging to support performance and errors monitoring.
 - Created Power BI dashboard with 4 analytical pages, DirectQuery integration and interactive geopolitical risk visualizations.
