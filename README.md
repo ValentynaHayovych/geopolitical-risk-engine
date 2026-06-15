@@ -7,13 +7,16 @@ ETL Pipeline • Machine Learning Forecasting • SQL Server • Power BI
 
 Welcome to the **Geopolitical Risk Engine** repository!
 
-This project transforms simulated historical conflicts data through a full ETL pipeline with SQL data warehouse layers, machine learning forecasting and Power BI reporting.
+This project transforms simulated historical conflicts data through a full ETL pipeline with machine learning forecasting, SQL data warehouse layers, and Power BI reporting.
 
-A PoissonRegressor ML model forecasts conflict frequency per country for 2025-2026 and appends results to the historical data. Data is staged through raw, staging and analytics schemas in SQL Server. Power BI connects to *fact_conflicts* and *fact_country_conflict_predictions* via DirectQuery, which are views mapped to the analytics schema tables.
+- ETL pipeline with curated dataset processes 1088 records with SQL Server warehouse Raw, Staging, Analytics layers. 
+- Total runtime of full ETL pipeline with added validation and prediction stages is 15.1 sec.
+- PoissonRegressor ML model forecasts conflict frequency per country for 2025-2026 and appends results to the historical data.
+- Implemented structured logging to support performance and errors monitoring.
+- Created Power BI dashboard with 4 analytical pages, DirectQuery integration and interactive geopolitical risk visualizations: [Power BI Dashboard Video Overview](powerbi/geopolitical-risk-engine-dashboard-overview.mp4)
 
 
 ## Business Context
-
 Organizations involved in geopolitical risk assessment, policy research, journalism, and international affairs often need to understand historical conflict patterns and identify regions with elevated levels of activity.
 
 This project demonstrates how an ETL pipeline can transform raw conflict records into an analytics-ready dataset that supports both descriptive and predictive analysis.
@@ -22,15 +25,6 @@ The solution enables users to:
 - Analyze conflict trends over time across frequency, economic loss, and casualties.
 - Explore geographical distribution of conflicts by GDP gap, resource dispute, conflict type and outcome.
 - Compare historical patterns with 2025-2026 forecasts derived from Poisson regression model.
-
-
-## Performance & Stats
-- ETL pipeline with curated dataset processes 1088 records with SQL Server warehouse Raw, Staging, Analytics layers. 
-- Total runtime of full ETL pipeline with added validation and prediction stages is 15.1 sec.
-- Dataset includes Year_Valid and Land_Valid columns from [Global Conflicts ML Pipeline](https://github.com/ValentynaHayovych/global-conflicts-ml-pipeline) project, used for filtering during ETL transform stage.
-- PoissonRegressor ML model was trained on Conflict_Count and Year to predict conflict frequency per country for 2025-2026.
-- Implemented structured logging to support performance and errors monitoring.
-- Created Power BI dashboard with 4 analytical pages, DirectQuery integration and interactive geopolitical risk visualizations.
 
 
 ## Architecture
@@ -54,9 +48,9 @@ Power BI Dashboard
 
 </div>
 
-
 ## Power BI Dashboard
 [Power BI Dashboard PDF](powerbi/geopolitical-risk-engine.pdf)
+[Power BI Dashboard Video Overview](powerbi/geopolitical-risk-engine-dashboard-overview.mp4)
 
 
 ## Prerequisites
@@ -130,9 +124,11 @@ Database, schemas and views creation queries essential for project formation.
 ### src
 Full ETL pipeline with additional forecast step. Extracts raw conflict data, validates, transforms and filters it, aggregates historical conflict frequency per country, predicts 2025-2026 values using PoissonRegressor, and loads each stage result, including two fact tables into SQL Server.
 
+Dataset includes Year_Valid and Land_Valid columns from [Global Conflicts ML Pipeline](https://github.com/ValentynaHayovych/global-conflicts-ml-pipeline) project, used for filtering during ETL transform stage.
+
 
 ### powerbi
-Four-page Power BI dashboard supports exploratory analysis of global conflict data.
+Power BI dashboard connects to SQL Server *fact_conflicts* and *fact_country_conflict_predictions* via DirectQuery, which are views mapped to the analytics schema tables. Four-page overview supports exploratory analysis of global conflict data.
 - **Executive Overview** - KPIs, conflict frequency by year, globe visualization
 - **Conflicts Impact Analysis** - military and civilian deaths, economic loss by conflict type, country and year
 - **Geopolitical Analysis** - conflict map filtered by outcome, resource dispute, GDP gap and conflict type
